@@ -24,17 +24,15 @@ fs.readFile(file, 'utf8', async (err,raw_text) => {
     const chapter_text_regex =/(?<=<p.*>)(((?!<p.*>).)*)?(?=<\/p>)/gs;
     
     const chapters = raw_text.match(chapter_regex);
-    const chapter_objs = chapters.map(chapter => ({ title: chapter.match(chapter_title_regex), paragraphs: chapter.match(chapter_text_regex)}));
+    const chapter_objs = chapters.map(chapter => ({ title: chapter.match(chapter_title_regex).toString(), paragraphs: chapter.match(chapter_text_regex)}));
 
     for(const chapter_obj of chapter_objs) {
        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/\r\n/g, ' '));
        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/<.*?>/gs, ''));
     }
 
-    const chapters_JSON = chapter_objs.map(chapter => JSON.stringify(chapter));
-
     //Add text to mongoose database
-    const text = await Text.create({Title: title, Author: author, Chapters: chapters_JSON});
+    const text = await Text.create({title: title, author: author, chapters: chapter_objs});
 });
 
 

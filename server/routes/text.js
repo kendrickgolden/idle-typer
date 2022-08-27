@@ -7,8 +7,9 @@ router.get('/', async function(req,res) {
         if(error){
             console.log("Could not find text:" + error);
     } else {
+        console.log(data);
         res.json(data);
-       
+        
     }});
     
    // res.json("test");

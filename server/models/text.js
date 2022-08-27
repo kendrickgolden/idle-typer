@@ -3,9 +3,12 @@ const Schema = mongoose.Schema;
 
 const TextSchema = new Schema(
     {
-        Title: {type: String, required:true},
-        Author: {type: String, required:true},
-        Chapters: {type:[String], required:true}
+        title: {type: String, required:true},
+        author: {type: String, required:true},
+        chapters: [{
+            title: {type: String, required:true},
+            paragraphs: {type: [String], required:true}   
+        }]
     }
 )
 
