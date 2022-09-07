@@ -1,48 +1,3 @@
-/*import React, { useContext, useRef, useState } from "react";
-import { UserContext } from "../App";
-let chapterIndex = 0;
-let paragraphIndex = 0;
-//let charIndex = 0;
-
-export default function TextInput() {
-  const UserContextValues = useContext(UserContext);
-  const inputRef = useRef();
-  const text = UserContextValues.text;
-  const chapters = text.chapters;
-  const [currentChapterTitle, setCurrentChapterTitle] = useState(
-    chapters[chapterIndex].title
-  );
-  const [currentChapter, setCurrentChapter] = useState(
-    chapters[chapterIndex].paragraphs
-  );
- // let currentParagraphRaw = currentChapter[paragraphIndex].trim();
-  const [currentParagraph, setCurrentParagraph] = useState(
-    currentChapter[paragraphIndex].trim()
-  );
-  const [charIndex, setCharIndex] = useState(0);
-
-  function verifyKey(event) {
-    const input = inputRef.current.value.length;
-    while(input.length <= currentParagraph.length) {
-        if(input === currentParagraph.substring(0,input.length)) {
-
-        }
-    }
-  }
-//TODO: Remove Form and make input onChange
-  return (
-    <form id="input-form" onKeyDown={verifyKey}>
-      <div>
-        {" "}
-        {currentParagraph.split("").map((char, index) => {
-          return <span>{char}</span>;
-        })}
-      </div>
-      <input id="input-text" type="text" ref={inputRef} />
-    </form>
-  );
-}*/
-
 import React, { useContext, useRef, useState } from "react";
 import { UserContext } from "../App";
 let chapterIndex = 0;
@@ -52,11 +7,12 @@ let charIndex = 0;
 export default function TextInput() {
   const UserContextValues = useContext(UserContext);
   const inputRef = useRef();
+  const setPoints = UserContextValues.setPoints;
   const text = UserContextValues.text;
   const chapters = text.chapters;
-  const [currentChapterTitle, setCurrentChapterTitle] = useState(
+  /*const [currentChapterTitle, setCurrentChapterTitle] = useState(
     chapters[chapterIndex].title
-  );
+  );*/
   const [currentChapter, setCurrentChapter] = useState(
     chapters[chapterIndex].paragraphs
   );
@@ -94,10 +50,12 @@ export default function TextInput() {
       if (charIndex < currentParagraph.length) {
         if (lastCharInput === " ") {
           event.target.value = "";
+          setPoints(prev => prev +1);
         } 
         setCorrectParagraph((prevVal) => prevVal.concat(lastCharInput));
         setUntypedParagraph(currentParagraph.substring(charIndex));
       } else {
+        setPoints(prev => prev +1);
         const newParagraph = currentChapter[++paragraphIndex].trim();
         console.log(newParagraph);
         setCurrentParagraph(newParagraph);

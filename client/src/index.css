@@ -7,6 +7,15 @@
     height: 100vh;
 }
 
+#point-display {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+}
+
+
 #main-text {
     position: relative;
     top: 50%;
@@ -32,9 +41,6 @@
     border-style: solid;
     border-color: black;
     border: 0;
-   /* border: 0;
-    bottom: 0;    
-    left: 0;*/
 }
 
 #current-paragraph {
@@ -56,4 +62,48 @@
 
 .incorrect {
     color:red;
+}
+
+#upgrade-menu {
+    position: absolute;
+    left: 2.5%;
+    top: 5%;
+    width: 15%;
+    height: 85%;
+    background-color: gray;
+    text-align: center;
+    padding: 10px;
+}
+
+#upgrade-types {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 5px;
+}
+
+.upgrade-type {
+    border: 2px solid black;
+    text-align: center;
+    width: 50%;
+    height: 50px;
+    line-height: 50px;
+}
+
+.upgrade-menu-scene {
+    position: absolute;
+    border: 2px solid black;
+    height: 80%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.upgrade-btn {
+    width: 90%;
+    background-color: white;
+    height: 15%;
+    color: black;
 }
