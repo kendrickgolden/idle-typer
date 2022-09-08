@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { UserContext } from "../App";
 let chapterIndex = 0;
 let paragraphIndex = 0;
@@ -8,6 +8,9 @@ export default function TextInput() {
   const UserContextValues = useContext(UserContext);
   const inputRef = useRef();
   const setPoints = UserContextValues.setPoints;
+  const upgrades = UserContextValues.upgrades;
+
+
   const text = UserContextValues.text;
   const chapters = text.chapters;
   /*const [currentChapterTitle, setCurrentChapterTitle] = useState(
@@ -29,8 +32,8 @@ export default function TextInput() {
 
   function verifyText(event) {
     const input = event.target.value;
-    console.log(currentParagraph.length);
-    console.log(charIndex);
+   // console.log(currentParagraph.length);
+    //console.log(charIndex);
     const lastCharInput = input.slice(-1);
     if (incorrectParagraph.length > 0) {
       if (event.nativeEvent.inputType === "deleteContentBackward") {
@@ -50,12 +53,12 @@ export default function TextInput() {
       if (charIndex < currentParagraph.length) {
         if (lastCharInput === " ") {
           event.target.value = "";
-          setPoints(prev => prev +1);
+          setPoints(prev => prev + (1000 + 1*upgrades[0]));
         } 
         setCorrectParagraph((prevVal) => prevVal.concat(lastCharInput));
         setUntypedParagraph(currentParagraph.substring(charIndex));
       } else {
-        setPoints(prev => prev +1);
+        setPoints(prev => prev + (1 + 1*upgrades[0]));
         const newParagraph = currentChapter[++paragraphIndex].trim();
         console.log(newParagraph);
         setCurrentParagraph(newParagraph);
