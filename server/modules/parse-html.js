@@ -34,7 +34,9 @@ fs.readFile(file, 'utf8', async (err,raw_text) => {
      //  chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/\r\n/g, ' '));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/\n/g, ' '));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/<.*?>/gs, ''));
-        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/—/, '-'));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/—/g, '-'));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/’/g, "'"));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/   |  /g, ' '));
     }
 
     console.log(chapter_objs[0]);

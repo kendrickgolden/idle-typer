@@ -54,7 +54,7 @@ button {
 
 #main-text {
     font-size: 32px;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 #current-paragraph {

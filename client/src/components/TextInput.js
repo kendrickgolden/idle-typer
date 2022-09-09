@@ -10,7 +10,6 @@ export default function TextInput() {
   const setPoints = UserContextValues.setPoints;
   const upgrades = UserContextValues.upgrades;
 
-
   const text = UserContextValues.text;
   const chapters = text.chapters;
   /*const [currentChapterTitle, setCurrentChapterTitle] = useState(
@@ -32,61 +31,88 @@ export default function TextInput() {
 
   function verifyText(event) {
     const input = event.target.value;
-   // console.log(currentParagraph.length);
-    //console.log(charIndex);
     const lastCharInput = input.slice(-1);
+    let newCorrectParagraph = correctParagraph;
+    let newIncorrectParagraph = incorrectParagraph;
+    let newUntypedParagrpah = untypedParagraph;
+    let newCurrentParagraph = currentParagraph;
+    let newCurrentChapter = currentChapter;
+
     if (incorrectParagraph.length > 0) {
+      if (lastCharInput === " ") {
+        event.target.value = input.slice(0, -1);
+        return;
+      }
       if (event.nativeEvent.inputType === "deleteContentBackward") {
-        setIncorrectParagraph((prevVal) => prevVal.slice(0, -1));
+        newIncorrectParagraph = newIncorrectParagraph.slice(0, -1);
       } else {
-        setIncorrectParagraph((prevVal) => prevVal.concat(lastCharInput));
+        newIncorrectParagraph = newIncorrectParagraph.concat(lastCharInput);
       }
     } else if (event.nativeEvent.inputType === "deleteContentBackward") {
       charIndex--;
-      setCorrectParagraph((prevVal) => prevVal.slice(0, -1));
-      setUntypedParagraph(currentParagraph.substring(charIndex));
-    }
-    else if (
-      lastCharInput === currentParagraph[charIndex]
-    ) {
+      newCorrectParagraph = newCorrectParagraph.slice(0, -1);
+      newUntypedParagrpah = currentParagraph.substring(charIndex);
+    } else if (lastCharInput === currentParagraph[charIndex]) {
       charIndex++;
       if (charIndex < currentParagraph.length) {
         if (lastCharInput === " ") {
+          if (inputRef.current.offsetTop > 0) {
+            newCorrectParagraph = newCorrectParagraph.substring(
+              newCorrectParagraph.length - event.target.value.length,
+              newCorrectParagraph.length
+            );
+          }
           event.target.value = "";
-          setPoints(prev => prev + (1000 + 1*upgrades[0]));
-        } 
-        setCorrectParagraph((prevVal) => prevVal.concat(lastCharInput));
-        setUntypedParagraph(currentParagraph.substring(charIndex));
+          setPoints((prev) => prev + (10 + 10 * upgrades[0]));
+          console.log(inputRef.current.offsetTop);
+        }
+        newCorrectParagraph = newCorrectParagraph.concat(lastCharInput);
+        newUntypedParagrpah = currentParagraph.substring(charIndex);
       } else {
-        setPoints(prev => prev + (1 + 1*upgrades[0]));
-        const newParagraph = currentChapter[++paragraphIndex].trim();
-        console.log(newParagraph);
-        setCurrentParagraph(newParagraph);
-        setCorrectParagraph("");
-        setIncorrectParagraph("");
-        setUntypedParagraph(newParagraph);
-        event.target.value = "";
-        charIndex = 0;
-      }
+        if(paragraphIndex === newCurrentChapter.length) {
+          newCurrentChapter = chapters[++chapterIndex].paragraphs;
+          paragraphIndex = 0;
+        } else {
+          paragraphIndex++;
+        }
 
-    } else {
-      setIncorrectParagraph(lastCharInput);
+         setPoints((prev) => prev + (10 + 10 * upgrades[0]));
+          //const newParagraph = newCurrentChapter[paragraphIndex].trim();
+          //setCurrentParagraph(newParagraph);
+          newCurrentParagraph = newCurrentChapter[paragraphIndex].trim();
+          newCorrectParagraph = "";
+          newIncorrectParagraph = "";
+          newUntypedParagrpah = newCurrentParagraph;
+          event.target.value = "";
+          charIndex = 0;
+        }
+      } else {
+      if (lastCharInput === " ") {
+        event.target.value = input.slice(0, -1);
+        return;
+      }
+      newIncorrectParagraph = lastCharInput;
     }
+
+    setCorrectParagraph(newCorrectParagraph);
+    setIncorrectParagraph(newIncorrectParagraph);
+    setUntypedParagraph(newUntypedParagrpah);
+    setCurrentParagraph(newCurrentParagraph);
+    setCurrentChapter(newCurrentChapter);
   }
 
   return (
-    <div id='text-input-container' onClick={focusInput}>
-        {" "}
-        {correctParagraph.split("").map((char, index) => {
-          return <span className="correct">{char}</span>;
-        })}
-        {incorrectParagraph.split("").map((char, index) => {
-          return <span className="incorrect">{char}</span>;
-        })}
-        <input id="main-input" type="text" ref={inputRef} onChange={verifyText} />
-        {untypedParagraph.split("").map((char, index) => {
-          return <span>{char}</span>;
-        })}
+    <div id="text-input-container" onClick={focusInput}>
+      {correctParagraph.split("").map((char, index) => {
+        return <span className="correct">{char}</span>;
+      })}
+      {incorrectParagraph.split("").map((char, index) => {
+        return <span className="incorrect">{char}</span>;
+      })}
+      <input id="main-input" type="text" ref={inputRef} onChange={verifyText} />
+      {untypedParagraph.split("").map((char, index) => {
+        return <span>{char}</span>;
+      })}
     </div>
   );
 }

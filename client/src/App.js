@@ -17,8 +17,6 @@ function App() {
   useEffect(() => {
     setInterval(() => {
       setPoints((prev) => prev + PPS.current);
-      console.log(PPS.current);
-      console.log(upgrades);
     }, 1000);
     
   },[PPS]);
@@ -35,12 +33,10 @@ function App() {
 
   return (
     <>
-    {console.log("test")}
       <UserContext.Provider value={value}>
         <UpgradeMenu pps={PPS} />
         <Points pps={PPS}/>
         {text ? <MainText /> : null}
-      {console.log(PPS.current)}
       </UserContext.Provider>
     </>
   );
