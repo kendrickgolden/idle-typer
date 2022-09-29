@@ -69,17 +69,28 @@ button {
     color:red;
 }
 
-#upgrade-menu {
-    position: absolute;
-    left: 2.5%;
-    top: 5%;
-    width: 15%;
-    height: 85%;
+.container {
+   
     background-color: gray;
     text-align: center;
     padding: 10px;
 }
 
+#upgrade-container {
+    position: absolute;
+    left: 2.5%;
+    top: 5%;
+    width: 15%;
+    height: 85%;
+}
+
+#level-container {
+    position: absolute;
+    right: 2.5%;
+    top: 5%;
+    width: 15%;
+    height: 85%;
+}
 /*
 #upgrade-types {
     display: flex;
@@ -88,15 +99,15 @@ button {
     padding: 5px;
 }*/
 
-.upgrade-type {
+/*.upgrade-type {
     border: 2px solid black;
     text-align: center;
     width: 50%;
     height: 50px;
     line-height: 50px;
-}
+}*/
 
-.upgrade-menu-scene {
+.menu-scene {
     position: absolute;
     border: 2px solid black;
     width: 90%;
@@ -106,21 +117,27 @@ button {
     padding-top: 10px;
     padding-bottom: 10px;
     list-style-type: none;
-    gap: 10px
+    gap: 10px;
+    height: 90%;
 }
 
-.upgrade-btn {
+.purchase-btn {
     position: relative;
     width: 90%;
     background-color: white;
-    height: 15%;
+    flex-basis: 20%;
     color: black;
-
 }
 
-.upgrade-btn button {
+.purchase-btn button {
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    
+}
+
+.locked {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: darkgray;
 }

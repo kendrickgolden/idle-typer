@@ -11,7 +11,7 @@ export default function UpgradeButton(props) {
   const index = props.index;
   const name = props.info.name;
   const desc = props.info.desc;
-  let price = Math.trunc(props.info.price * Math.pow(1.5,(upgrades[index])));
+  let price = Math.trunc(props.info.price * Math.pow(1.5, upgrades[index]));
   let PPS = props.pps;
 
   function purchaseUpgrade() {
@@ -21,18 +21,38 @@ export default function UpgradeButton(props) {
       newUpgrades[props.index] = newUpgrades[props.index] + 1;
       setUpgrades(newUpgrades);
       //setPPS(newUpgrades[1] * .1 + newUpgrades[2] * .5 + newUpgrades[3] * 1 + upgrades[4] * 2 )
-      PPS.current = newUpgrades[1] * 1 + newUpgrades[2] * 5 + newUpgrades[3] * 10 + newUpgrades[4] * 20 ;
-      {console.log(PPS.current)}
+      let newPPS = 0;
+      if(newUpgrades[1] > 0) {
+        newPPS += newUpgrades[1] * 1;
+      }
+      if(newUpgrades[2] > 0) {
+        newPPS += newUpgrades[2] * 5;
+      }
+      if(newUpgrades[3] > 0) {
+        newPPS += newUpgrades[3] * 10;
+      }
+      if(newUpgrades[4] > 0) {
+        newPPS += newUpgrades[1] * 20;
+      }
+
+      PPS.current = newPPS;
+      {
+        console.log(newUpgrades);
+      }
     }
   }
 
   return (
-    <li className="upgrade-btn">
-      <button onClick={purchaseUpgrade}>
-        <span>Owned:{upgrades[props.index]}</span>
-        <div>{name}</div> <div>{desc} </div>{" "}
-        <div>{Math.floor(price /10)} pts.</div>
-      </button>
+    <li className="purchase-btn">
+      {upgrades[index] >= 0 ? (
+        <button onClick={purchaseUpgrade}>
+          <span>Owned:{upgrades[props.index]}</span>
+          <div>{name}</div> <div>{desc} </div>{" "}
+          <div>{Math.floor(price / 10)} pts.</div>
+        </button>
+      ) : (
+        <div className="locked"> LOCKED </div>
+      )}
     </li>
   );
 }
