@@ -5,7 +5,8 @@ import UpgradeContainer from "./components/Upgrades/UpgradeContainer";
 //import LevelMenu from "./components/Levels/LevelMenu";
 import UpgradeButton from "./components/Upgrades/ActiveUpgrades/UpgradeButton";
 import LevelContainer from "./components/Levels/LevelContainer";
-
+import PassivePoints
+ from "./components/PassivePoints";
 export const UserContext = createContext();
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
   return (
     <>
       <UserContext.Provider value={value}>
+        <PassivePoints pps={PPS} />
         <UpgradeContainer pps={PPS} />
         <LevelContainer />
          <Points pps={PPS}/>

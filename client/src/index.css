@@ -20,6 +20,13 @@ button {
     font-size: 32px;
 }
 
+#passive-points-display {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
 
 #main-text {
     position: relative;
