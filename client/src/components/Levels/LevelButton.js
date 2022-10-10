@@ -29,9 +29,9 @@ export default function LevelButton(props) {
   }
 
   return (
-    <li className="purchase-btn">
+    <li className="purchase-btn-li">
       {levels[index] >=0 ? (
-        <button onClick={purchaseLevel}>
+        <button onClick={purchaseLevel} className='purchase-btn'>
           <span>Unlocked:{levels[index] === 1 ? "yes" : "no"}</span>
           <div>{name}</div> <div> </div>{" "}
           <div>{Math.floor(price / 10)} pts.</div>

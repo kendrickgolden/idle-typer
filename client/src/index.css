@@ -128,7 +128,7 @@ button {
     height: 90%;
 }
 
-.purchase-btn {
+.purchase-btn-li {
     position: relative;
     width: 90%;
     background-color: white;
@@ -136,9 +136,8 @@ button {
     color: black;
 }
 
-.purchase-btn button {
-    padding-top: 10px;
-    padding-bottom: 10px;
+.purchase-btn {
+    height: 100%;
     width: 100%;
 }
 

@@ -63,7 +63,7 @@ export default function TextInput() {
             );
           }
           event.target.value = "";
-          setPoints((prev) => prev + (100000 + 10 * upgrades[0]));
+          setPoints((prev) => prev + (10 + 10 * upgrades[0]));
           console.log(inputRef.current.offsetTop);
         }
         newCorrectParagraph = newCorrectParagraph.concat(lastCharInput);
