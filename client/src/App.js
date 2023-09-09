@@ -42,8 +42,15 @@ function App() {
     let paragraphArray = [];
     text.chapters.forEach(function (chapter) { 
       paragraphArray = paragraphArray.concat(chapter.paragraphs);
-      
     });
+
+    //Fisher-Yates shuffle algorithm for randomization
+    for(let i = paragraphArray.length - 1; i > 0; i--) {
+      let randInt = Math.floor(Math.random() * paragraphArray.length);
+      let tempPar = paragraphArray[randInt];
+      paragraphArray[randInt] = paragraphArray[i];
+      paragraphArray[i] = tempPar;
+    }
     setText(paragraphArray);
   }
 
