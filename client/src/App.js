@@ -28,16 +28,28 @@ function App() {
   
 
   const title = "Frankenstein; or, the Modern Prometheus";
+
+  //import paragraphs of text
   useEffect(() => {
     fetch(`http://localhost:5000/api/text?title=${title}`)
       .then((res) => {
         return res.json();
       })
-      .then((data) => setText(data));
+      .then((data) => randomizeParagraphs(data));
   }, []);
+
+  function randomizeParagraphs(text) {
+    let paragraphArray = [];
+    text.chapters.forEach(function (chapter) { 
+      paragraphArray = paragraphArray.concat(chapter.paragraphs);
+      
+    });
+    setText(paragraphArray);
+  }
 
   return (
     <>
+    {console.log(text)}
       <UserContext.Provider value={value}>
         <PassivePoints pps={PPS} />
         <UpgradeContainer pps={PPS} />

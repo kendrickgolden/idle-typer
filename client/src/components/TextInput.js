@@ -11,15 +11,12 @@ export default function TextInput() {
   const upgrades = UserContextValues.upgrades;
 
   const text = UserContextValues.text;
-  const chapters = text.chapters;
-  /*const [currentChapterTitle, setCurrentChapterTitle] = useState(
-    chapters[chapterIndex].title
-  );*/
+ /* const chapters = text.chapters;
   const [currentChapter, setCurrentChapter] = useState(
     chapters[chapterIndex].paragraphs
-  );
+  );*/
   const [currentParagraph, setCurrentParagraph] = useState(
-    currentChapter[paragraphIndex].trim()
+    text[paragraphIndex].trim()
   );
   const [untypedParagraph, setUntypedParagraph] = useState(currentParagraph);
   const [correctParagraph, setCorrectParagraph] = useState("");
@@ -36,7 +33,7 @@ export default function TextInput() {
     let newIncorrectParagraph = incorrectParagraph;
     let newUntypedParagrpah = untypedParagraph;
     let newCurrentParagraph = currentParagraph;
-    let newCurrentChapter = currentChapter;
+    //let newCurrentChapter = currentChapter;
 
     if (incorrectParagraph.length > 0) {
       if (lastCharInput === " ") {
@@ -69,17 +66,16 @@ export default function TextInput() {
         newCorrectParagraph = newCorrectParagraph.concat(lastCharInput);
         newUntypedParagrpah = currentParagraph.substring(charIndex);
       } else {
-        if(paragraphIndex === newCurrentChapter.length) {
+       /* if(paragraphIndex === newCurrentChapter.length) {
           newCurrentChapter = chapters[++chapterIndex].paragraphs;
           paragraphIndex = 0;
-        } else {
+        } else {*/
           paragraphIndex++;
-        }
+       // }
 
          setPoints((prev) => prev + (10 + 10 * upgrades[0]));
-          //const newParagraph = newCurrentChapter[paragraphIndex].trim();
-          //setCurrentParagraph(newParagraph);
-          newCurrentParagraph = newCurrentChapter[paragraphIndex].trim();
+         // newCurrentParagraph = newCurrentChapter[paragraphIndex].trim();
+          newCurrentParagraph = text[paragraphIndex].trim();
           newCorrectParagraph = "";
           newIncorrectParagraph = "";
           newUntypedParagrpah = newCurrentParagraph;
@@ -87,6 +83,7 @@ export default function TextInput() {
           charIndex = 0;
         }
       } else {
+      //Don't allow user to input " "
       if (lastCharInput === " ") {
         event.target.value = input.slice(0, -1);
         return;
@@ -98,7 +95,7 @@ export default function TextInput() {
     setIncorrectParagraph(newIncorrectParagraph);
     setUntypedParagraph(newUntypedParagrpah);
     setCurrentParagraph(newCurrentParagraph);
-    setCurrentChapter(newCurrentChapter);
+   // setCurrentChapter(newCurrentChapter);
   }
 
   return (
