@@ -35,9 +35,7 @@ export default function UpgradeButton(props) {
       }
 
       PPS.current = newPPS;
-      {
-        console.log(newUpgrades);
-      }
+
     }
   }
 

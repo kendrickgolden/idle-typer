@@ -61,7 +61,6 @@ export default function TextInput() {
           }
           event.target.value = "";
           setPoints((prev) => prev + (10 + 10 * upgrades[0]));
-          console.log(inputRef.current.offsetTop);
         }
         newCorrectParagraph = newCorrectParagraph.concat(lastCharInput);
         newUntypedParagrpah = currentParagraph.substring(charIndex);

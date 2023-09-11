@@ -1,6 +1,7 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const Text = require('../models/text');
+//Run in terminal with node
 const arguments = process.argv;
 const file = arguments[2];
 const title = arguments[3];
@@ -29,17 +30,18 @@ fs.readFile(file, 'utf8', async (err,raw_text) => {
     const chapter_objs = chapters.map(chapter => ({ title: chapter.match(chapter_title_regex).toString(), paragraphs: chapter.match(chapter_text_regex)}));
     
 
-    console.log(chapter_objs[0]);
+    //making it easier to type characters that appear in the text
     for(const chapter_obj of chapter_objs) {
-     //  chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/\r\n/g, ' '));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/\n/g, ' '));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/<.*?>/gs, ''));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/—/g, '-'));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/’/g, "'"));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/❛/g, "'"));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/❞/g,'"'));
+        chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/❝/g,'"'));
         chapter_obj.paragraphs = chapter_obj.paragraphs.map(p => p.replace(/   |  /g, ' '));
     }
 
-    console.log(chapter_objs[0]);
     //Add text to mongoose database
     const text = await Text.create({title: title, author: author, chapters: chapter_objs});
 });

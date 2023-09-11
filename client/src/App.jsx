@@ -5,27 +5,32 @@ import UpgradeContainer from "./components/Upgrades/UpgradeContainer";
 //import LevelMenu from "./components/Levels/LevelMenu";
 import UpgradeButton from "./components/Upgrades/ActiveUpgrades/UpgradeButton";
 import LevelContainer from "./components/Levels/LevelContainer";
-import PassivePoints
- from "./components/PassivePoints";
+import PassivePoints from "./components/PassivePoints";
 export const UserContext = createContext();
 
 function App() {
   const [text, setText] = useState(null);
   const [points, setPoints] = useState(0);
   const [upgrades, setUpgrades] = useState([0, -1, -1, -1, -1]);
-  const [levels, setLevels] = useState([0,-1,-1,-1,-1])
+  const [levels, setLevels] = useState([0, -1, -1, -1, -1]);
   const [progress, setProgress] = useState(0);
   const PPS = useRef(0);
-  const value = { text, setText, points, setPoints, upgrades, setUpgrades, levels, setLevels};
-
+  const value = {
+    text,
+    setText,
+    points,
+    setPoints,
+    upgrades,
+    setUpgrades,
+    levels,
+    setLevels,
+  };
 
   useEffect(() => {
     setInterval(() => {
       setPoints((prev) => prev + PPS.current);
     }, 1000);
-    
-  },[PPS]);
-  
+  }, [PPS]);
 
   const title = "Frankenstein; or, the Modern Prometheus";
 
@@ -40,13 +45,13 @@ function App() {
 
   function randomizeParagraphs(text) {
     let paragraphArray = [];
-    text.chapters.forEach(function (chapter) { 
+    text.chapters.forEach(function (chapter) {
       paragraphArray = paragraphArray.concat(chapter.paragraphs);
     });
 
     //Fisher-Yates shuffle algorithm for randomization
-    for(let i = paragraphArray.length - 1; i > 0; i--) {
-      let randInt = Math.floor(Math.random() * paragraphArray.length);
+    for (let i = paragraphArray.length - 1; i > 0; i--) {
+      let randInt = Math.floor(Math.random() * (i + 1));
       let tempPar = paragraphArray[randInt];
       paragraphArray[randInt] = paragraphArray[i];
       paragraphArray[i] = tempPar;
@@ -56,12 +61,11 @@ function App() {
 
   return (
     <>
-    {console.log(text)}
       <UserContext.Provider value={value}>
         <PassivePoints pps={PPS} />
         <UpgradeContainer pps={PPS} />
         <LevelContainer />
-         <Points pps={PPS}/>
+        <Points pps={PPS} />
         {text ? <MainText /> : null}
       </UserContext.Provider>
     </>

@@ -28,6 +28,26 @@ button {
     font-size: 20px;
 }
 
+
+/*COUNTDOWN TIME */
+#countdown {
+    position: relative;
+    width: 50%;
+    height: 20px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+}
+
+#countdown-bar {
+    position: relative;
+    background-color: red;
+    height: 100%;
+}
+
+/*TEXT INPUT*/
+
 #main-text {
     position: relative;
     top: 50%;
@@ -38,6 +58,8 @@ button {
     height: 30%;
     margin: 0;
 }
+
+
 
 #text-input-container {
     position: absolute;
@@ -56,6 +78,7 @@ button {
 }
 
 #current-paragraph {
+    display: inline;
     position: relative;
 }
 
@@ -64,9 +87,6 @@ button {
     overflow: hidden;
 }
 
-#current-paragraph {
-    display: inline;
-}
 
 .correct {
     color:green;
