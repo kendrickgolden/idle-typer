@@ -1,41 +1,38 @@
 import React, { useEffect, useState, useRef } from "react";
 
-function CountdownTimer({parLength}) {
-  const [totalTime, setTotalTime] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(100);
+function CountdownTimer({curPar}) {
+
+  const [totalTime, setTotalTime] = useState((curPar.length / 250 * 60));
+  const [timeLeft, setTimeLeft] = useState((curPar.length / 250 * 60));
   const countdownRef = useRef(null);
 
 
   useEffect(() => {
-    //using word = 5 chars and 50 wpm as typing rate for timer to deplete
-    let calculatedTime = (parLength / 250) * 60;
+    //using standard typing convention of 'word = 5 chars' and 50 wpm as typing rate for timer to deplete
+    let calculatedTime = (curPar.length / 250) * 60;
     setTotalTime(calculatedTime);
     setTimeLeft(calculatedTime);
-  },[parLength])
+  },[curPar])
 
 
   useEffect(() => {
     setInterval(() => {
       setTimeLeft((prev) => {
         if (prev > 0) {
-          return prev - 1;
+          return prev - 0.01;
         } else {
           return 0;
         }
       });
-    }, 1000);
+    }, 10);
   }, []);
 
   useEffect(() => {
-   // countdownRef.current.style.width = `${100 * timeLeft/ totalTime}%`;
-   countdownRef.current.style.width = `${timeLeft}%`;
+   countdownRef.current.style.width = `${100 * timeLeft / totalTime}%`;
   }, [timeLeft, totalTime]);
 
   return (
     <div id="countdown">
-     {/*} {console.log("length " + parLength)}
-      {console.log("total " + totalTime)}
-  {console.log("left " + timeLeft)}*/}
       <div id="countdown-bar" ref={countdownRef}></div>
     </div>
   );

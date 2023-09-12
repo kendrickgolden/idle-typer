@@ -5,8 +5,8 @@ import CountdownTimer from "./CountdownTimer";
 
 export default function MainText() {
   const UserContextValues = useContext(UserContext);
-  //const text = UserContextValues.text;
-  const text = ["test 1", "test 2", "test 3 test 3 "];
+  const text = UserContextValues.text;
+
 
   //set current paragraph
   const [curPar, setCurPar] = useState(text[0].trim());
@@ -16,20 +16,14 @@ export default function MainText() {
     setCurPar(text[parIndex % text.length].trim());
   }, [parIndex]);
 
-  /* const [parLength, setParLength] = useState(
-    text[paragraphIndex].trim().length
-  );*/
 
   return (
     <>
-      <CountdownTimer /*parLength={parLength}*/ />
+      <CountdownTimer curPar={curPar} />
 
       <div id="main-text">
         {console.log("Index: " + parIndex)}
-        <TextInput
-          curPar={curPar}
-          setParIndex={setParIndex} /* setParLength={setParLength}*/
-        />
+        <TextInput curPar={curPar} setParIndex={setParIndex} />
       </div>
     </>
   );

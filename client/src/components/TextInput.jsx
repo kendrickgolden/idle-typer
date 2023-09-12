@@ -20,14 +20,12 @@ export default function TextInput({ curPar, setParIndex }) {
     inputRef.current.focus();
   }
 
-  function testVerifyText(event) {
+  function verifyText(event) {
     const input = event.target.value;
     const lastCharInput = input.slice(-1);
-    console.log(lastCharInput);
 
     if (event.nativeEvent.inputType === "deleteContentBackward") {
       if (incorrectParagraph.length > 0) {
-        console.log("helllo");
         setIncorrectParagraph(incorrectParagraph.slice(0, -1));
       } else if (charIndex > 0 && correctParagraph[charIndex - 1] !== " ") {
         charIndex--;
@@ -57,17 +55,12 @@ export default function TextInput({ curPar, setParIndex }) {
         setUntypedParagraph(curPar.substring(charIndex));
       }
     } else {
-      console.log("testttt");
       setIncorrectParagraph(incorrectParagraph.concat(lastCharInput));
     }
   }
 
   return (
     <div id="text-input-container" onClick={focusInput}>
-      {console.log("untyped: " + untypedParagraph)}
-      {console.log("correct: " + correctParagraph)}
-      {console.log("incorrect: " + incorrectParagraph)}
-      {console.log("Index: " + charIndex)}
       {correctParagraph.split("").map((char, index) => {
         return <span className="correct">{char}</span>;
       })}
@@ -78,7 +71,7 @@ export default function TextInput({ curPar, setParIndex }) {
         id="main-input"
         type="text"
         ref={inputRef}
-        onChange={testVerifyText}
+        onChange={verifyText}
       />
       {untypedParagraph.split("").map((char, index) => {
         return <span>{char}</span>;
