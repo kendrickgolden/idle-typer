@@ -1,10 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 
-function CountdownTimer() {
-  //change later
-  const [totalTime, setTotalTime] = useState(100);
+function CountdownTimer({parLength}) {
+  const [totalTime, setTotalTime] = useState(0);
   const [timeLeft, setTimeLeft] = useState(100);
   const countdownRef = useRef(null);
+
+
+  useEffect(() => {
+    //using word = 5 chars and 50 wpm as typing rate for timer to deplete
+    let calculatedTime = (parLength / 250) * 60;
+    setTotalTime(calculatedTime);
+    setTimeLeft(calculatedTime);
+  },[parLength])
+
 
   useEffect(() => {
     setInterval(() => {
@@ -19,12 +27,15 @@ function CountdownTimer() {
   }, []);
 
   useEffect(() => {
-    countdownRef.current.style.width = `${timeLeft}%`;
-  }, [timeLeft]);
+   // countdownRef.current.style.width = `${100 * timeLeft/ totalTime}%`;
+   countdownRef.current.style.width = `${timeLeft}%`;
+  }, [timeLeft, totalTime]);
 
   return (
     <div id="countdown">
-      {console.log(timeLeft)}
+     {/*} {console.log("length " + parLength)}
+      {console.log("total " + totalTime)}
+  {console.log("left " + timeLeft)}*/}
       <div id="countdown-bar" ref={countdownRef}></div>
     </div>
   );

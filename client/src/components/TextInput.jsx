@@ -1,111 +1,85 @@
 import React, { useContext, useRef, useState, useEffect } from "react";
 import { UserContext } from "../App";
-let chapterIndex = 0;
-let paragraphIndex = 0;
 let charIndex = 0;
 
-export default function TextInput() {
+export default function TextInput({ curPar, setParIndex }) {
   const UserContextValues = useContext(UserContext);
   const inputRef = useRef();
   const setPoints = UserContextValues.setPoints;
   const upgrades = UserContextValues.upgrades;
 
-  const text = UserContextValues.text;
- /* const chapters = text.chapters;
-  const [currentChapter, setCurrentChapter] = useState(
-    chapters[chapterIndex].paragraphs
-  );*/
-  const [currentParagraph, setCurrentParagraph] = useState(
-    text[paragraphIndex].trim()
-  );
-  const [untypedParagraph, setUntypedParagraph] = useState(currentParagraph);
+  const [untypedParagraph, setUntypedParagraph] = useState(curPar);
   const [correctParagraph, setCorrectParagraph] = useState("");
   const [incorrectParagraph, setIncorrectParagraph] = useState("");
+
+  useEffect(() => {
+    setUntypedParagraph(curPar);
+  }, [curPar]);
 
   function focusInput() {
     inputRef.current.focus();
   }
 
-  function verifyText(event) {
+  function testVerifyText(event) {
     const input = event.target.value;
     const lastCharInput = input.slice(-1);
-    let newCorrectParagraph = correctParagraph;
-    let newIncorrectParagraph = incorrectParagraph;
-    let newUntypedParagrpah = untypedParagraph;
-    let newCurrentParagraph = currentParagraph;
-    //let newCurrentChapter = currentChapter;
+    console.log(lastCharInput);
 
-    if (incorrectParagraph.length > 0) {
-      if (lastCharInput === " ") {
-        event.target.value = input.slice(0, -1);
-        return;
+    if (event.nativeEvent.inputType === "deleteContentBackward") {
+      if (incorrectParagraph.length > 0) {
+        console.log("helllo");
+        setIncorrectParagraph(incorrectParagraph.slice(0, -1));
+      } else if (charIndex > 0 && correctParagraph[charIndex - 1] !== " ") {
+        charIndex--;
+        setCorrectParagraph(correctParagraph.slice(0, -1));
+        setUntypedParagraph(curPar.substring(charIndex));
       }
-      if (event.nativeEvent.inputType === "deleteContentBackward") {
-        newIncorrectParagraph = newIncorrectParagraph.slice(0, -1);
+    } else if (lastCharInput === " ") {
+      if (" " === curPar[charIndex]) {
+        charIndex++;
+        setCorrectParagraph(correctParagraph.concat(lastCharInput));
+        setUntypedParagraph(curPar.substring(charIndex));
+        setPoints((prev) => prev + (10 + 10 * upgrades[0]));
       } else {
-        newIncorrectParagraph = newIncorrectParagraph.concat(lastCharInput);
+        event.target.value = input.slice(0, -1);
       }
-    } else if (event.nativeEvent.inputType === "deleteContentBackward") {
-      charIndex--;
-      newCorrectParagraph = newCorrectParagraph.slice(0, -1);
-      newUntypedParagrpah = currentParagraph.substring(charIndex);
-    } else if (lastCharInput === currentParagraph[charIndex]) {
+    } else if (lastCharInput === curPar[charIndex]) {
       charIndex++;
-      if (charIndex < currentParagraph.length) {
-        if (lastCharInput === " ") {
-          if (inputRef.current.offsetTop > 0) {
-            newCorrectParagraph = newCorrectParagraph.substring(
-              newCorrectParagraph.length - event.target.value.length,
-              newCorrectParagraph.length
-            );
-          }
-          event.target.value = "";
-          setPoints((prev) => prev + (10 + 10 * upgrades[0]));
-        }
-        newCorrectParagraph = newCorrectParagraph.concat(lastCharInput);
-        newUntypedParagrpah = currentParagraph.substring(charIndex);
-      } else {
-       /* if(paragraphIndex === newCurrentChapter.length) {
-          newCurrentChapter = chapters[++chapterIndex].paragraphs;
-          paragraphIndex = 0;
-        } else {*/
-          paragraphIndex++;
-       // }
 
-         setPoints((prev) => prev + (10 + 10 * upgrades[0]));
-         // newCurrentParagraph = newCurrentChapter[paragraphIndex].trim();
-          newCurrentParagraph = text[paragraphIndex].trim();
-          newCorrectParagraph = "";
-          newIncorrectParagraph = "";
-          newUntypedParagrpah = newCurrentParagraph;
-          event.target.value = "";
-          charIndex = 0;
-        }
+      if (charIndex === curPar.length) {
+        charIndex = 0;
+        setParIndex((parIndex) => parIndex + 1);
+        setCorrectParagraph("");
+        setIncorrectParagraph("");
+        setPoints((prev) => prev + (10 + 10 * upgrades[0]));
       } else {
-      //Don't allow user to input " "
-      if (lastCharInput === " ") {
-        event.target.value = input.slice(0, -1);
-        return;
+        setCorrectParagraph(correctParagraph.concat(lastCharInput));
+        setUntypedParagraph(curPar.substring(charIndex));
       }
-      newIncorrectParagraph = lastCharInput;
+    } else {
+      console.log("testttt");
+      setIncorrectParagraph(incorrectParagraph.concat(lastCharInput));
     }
-
-    setCorrectParagraph(newCorrectParagraph);
-    setIncorrectParagraph(newIncorrectParagraph);
-    setUntypedParagraph(newUntypedParagrpah);
-    setCurrentParagraph(newCurrentParagraph);
-   // setCurrentChapter(newCurrentChapter);
   }
 
   return (
     <div id="text-input-container" onClick={focusInput}>
+      {console.log("untyped: " + untypedParagraph)}
+      {console.log("correct: " + correctParagraph)}
+      {console.log("incorrect: " + incorrectParagraph)}
+      {console.log("Index: " + charIndex)}
       {correctParagraph.split("").map((char, index) => {
         return <span className="correct">{char}</span>;
       })}
       {incorrectParagraph.split("").map((char, index) => {
         return <span className="incorrect">{char}</span>;
       })}
-      <input id="main-input" type="text" ref={inputRef} onChange={verifyText} />
+      <input
+        id="main-input"
+        type="text"
+        ref={inputRef}
+        onChange={testVerifyText}
+      />
       {untypedParagraph.split("").map((char, index) => {
         return <span>{char}</span>;
       })}
