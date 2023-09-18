@@ -1,10 +1,7 @@
 import Points from "./components/CenterDisplay/Points";
 import MainText from "./components/CenterDisplay/MainText";
 import { createContext, useEffect, useState, useRef } from "react";
-import UpgradeContainer from "./components/Upgrades/UpgradeContainer";
-//import LevelMenu from "./components/Levels/LevelMenu";
-import UpgradeButton from "./components/Upgrades/ActiveUpgrades/UpgradeButton";
-import LevelContainer from "./components/Levels/LevelContainer";
+import UpgradeContainer from "./components/Store/PassiveGenerators/UpgradeContainer";
 import PassivePoints from "./components/CenterDisplay/PassivePoints";
 export const UserContext = createContext();
 
@@ -64,7 +61,6 @@ function App() {
       <UserContext.Provider value={value}>
         <PassivePoints pps={PPS} />
         <UpgradeContainer pps={PPS} />
-        <LevelContainer />
         <Points pps={PPS} />
         {text ? <MainText /> : null}
       </UserContext.Provider>
