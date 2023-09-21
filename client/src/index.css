@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -89,21 +88,21 @@ button {
 
 
 .correct {
-    color:green;
+    color: green;
 }
 
 .incorrect {
-    color:red;
+    color: red;
 }
 
 .container {
-   
+
     background-color: gray;
     text-align: center;
     padding: 10px;
 }
 
-#upgrade-container {
+#passive-container {
     position: absolute;
     left: 2.5%;
     top: 5%;
@@ -111,28 +110,14 @@ button {
     height: 85%;
 }
 
-#level-container {
+#upgrade-container {
     position: absolute;
     right: 2.5%;
     top: 5%;
     width: 15%;
     height: 85%;
 }
-/*
-#upgrade-types {
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-    padding: 5px;
-}*/
 
-/*.upgrade-type {
-    border: 2px solid black;
-    text-align: center;
-    width: 50%;
-    height: 50px;
-    line-height: 50px;
-}*/
 
 .menu-scene {
     position: absolute;

@@ -1,9 +1,8 @@
 import React from 'react'
 
-export default function PassivePoints(props) {
-    let PPS = props.pps;
+export default function PassivePoints({passiveArray}) {
 
   return (
-    <div id="passive-points-display"> {PPS ? "+" + PPS.current / 10  +"/s": null}</div>
+    <div id="passive-points-display"> {"+ " + passiveArray[0].quant  +"/s"}</div>
   )
 }
