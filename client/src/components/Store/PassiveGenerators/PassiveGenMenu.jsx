@@ -1,6 +1,6 @@
 import PurchaseButton from "./PurhaseButton";
 
-export default function PassiveMenu({ passiveArray, setPassiveArray }) {
+export default function PassiveMenu({ passiveArray, setPassiveArray, points, setPoints }) {
   return (
     <ul className="menu-scene">
       {passiveArray.map((info, index, arr) => (
@@ -13,6 +13,8 @@ export default function PassiveMenu({ passiveArray, setPassiveArray }) {
           quant={info.quant}
           arr={arr}
           setPassives={setPassiveArray}
+          points={points}
+          setPoints={setPoints}
         />
       ))}
     </ul>

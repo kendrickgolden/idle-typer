@@ -10,11 +10,9 @@ export default function UpgradeButton({
   needed,
   arr,
   setPassiveArray,
+  points,
+  setPoints,
 }) {
-  const UserContextValues = useContext(UserContext);
-  const points = UserContextValues.points;
-  const setPoints = UserContextValues.setPoints;
-
   function purchaseUpgrade() {
     if (points >= boostPrice) {
       setPoints((prev) => prev - boostPrice);

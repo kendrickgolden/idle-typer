@@ -1,12 +1,13 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { UserContext } from "../../App";
+import React, { useRef, useState, useEffect } from "react";
 let charIndex = 0;
 
-export default function TextInput({ curPar, setParIndex, timeLeft }) {
-  const UserContextValues = useContext(UserContext);
+export default function TextInput({
+  curPar,
+  setParIndex,
+  timeLeft,
+  setPoints,
+}) {
   const inputRef = useRef();
-  const setPoints = UserContextValues.setPoints;
-  //const upgrades = UserContextValues.upgrades;
 
   const [untypedParagraph, setUntypedParagraph] = useState(curPar);
   const [correctParagraph, setCorrectParagraph] = useState("");
@@ -47,9 +48,9 @@ export default function TextInput({ curPar, setParIndex, timeLeft }) {
       if (charIndex === curPar.length) {
         charIndex = 0;
         const totalWordCount = curPar.length / 5;
-        const totalTime = curPar.length / 250 * 60;
-        const speedBonus =  totalWordCount * (timeLeft/ totalTime);
-        setPoints((prev) => prev +  10 * (speedBonus + totalWordCount));
+        const totalTime = (curPar.length / 250) * 60;
+        const speedBonus = totalWordCount * (timeLeft / totalTime);
+        setPoints((prev) => prev + 10 * (speedBonus + totalWordCount));
         setParIndex((parIndex) => parIndex + 1);
         setCorrectParagraph("");
         setIncorrectParagraph("");

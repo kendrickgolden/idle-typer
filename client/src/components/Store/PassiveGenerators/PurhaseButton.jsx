@@ -9,17 +9,20 @@ export default function UpgradeButton({
   quant,
   arr,
   setPassives,
+  points,
+  setPoints,
 }) {
-  const UserContextValues = useContext(UserContext);
-  const points = UserContextValues.points;
-  const setPoints = UserContextValues.setPoints;
 
   function purchaseUpgrade() {
     if (points >= price) {
       setPoints((prev) => prev - price);
       const newPassives = arr.map((passive, arrIndex) => {
         if (arrIndex === index) {
-          return { ...passive, quant: passive.quant + 1, price: passive.price * 1.1 };
+          return {
+            ...passive,
+            quant: passive.quant + 1,
+            price: passive.price * 1.1,
+          };
         } else {
           return passive;
         }

@@ -9,19 +9,10 @@ export const UserContext = createContext();
 function App() {
   const [text, setText] = useState(null);
   const [points, setPoints] = useState(99999999);
-  const [PPS, setPPS] = useState(0);
   const value = {
     text,
     setText,
-    points,
-    setPoints,
   };
-
-  useEffect(() => {
-    setInterval(() => {
-      setPoints((prev) => prev + PPS);
-    }, 1000);
-  }, [PPS]);
 
   const title = "Frankenstein; or, the Modern Prometheus";
 
@@ -94,6 +85,18 @@ function App() {
     PassiveUpgrade4,
   ]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPoints(
+        (prev) =>
+          prev + passiveArray.reduce((acc, cur) => acc + cur.quant * cur.pts, 0)
+      );
+      console.log(points);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [points, passiveArray]);
+
   return (
     <>
       <UserContext.Provider value={value}>
@@ -101,16 +104,18 @@ function App() {
         <PassiveContainer
           passiveArray={passiveArray}
           setPassiveArray={setPassiveArray}
+          points={points}
+          setPoints={setPoints}
         />
         <Upgrades
-          pps={PPS}
           passiveArray={passiveArray}
           setPassiveArray={setPassiveArray}
+          points={points}
+          setPoints={setPoints}
         />
-        <Points pps={PPS} />
-        {text ? <MainText /> : null}
+        <Points points={points} />
+        {text ? <MainText setPoints={setPoints}/> : null}
       </UserContext.Provider>
-      {console.log(PPS)}
     </>
   );
 }
