@@ -1,8 +1,8 @@
 import Points from "./components/CenterDisplay/Points";
 import MainText from "./components/CenterDisplay/MainText";
 import { createContext, useEffect, useState } from "react";
-import PassiveContainer from "./components/Store/PassiveGenerators/PassiveContainer";
-import Upgrades from "components/Store/Upgrades/Upgrades";
+import PassiveContainer from "./components/Store/PassiveGenerators/PassiveStore";
+import Upgrades from "components/Store/Upgrades/UpgradeStore";
 import PassivePoints from "./components/CenterDisplay/PassivePoints";
 export const UserContext = createContext();
 
@@ -100,7 +100,6 @@ function App() {
   return (
     <>
       <UserContext.Provider value={value}>
-        <PassivePoints passiveArray={passiveArray} />
         <PassiveContainer
           passiveArray={passiveArray}
           setPassiveArray={setPassiveArray}
@@ -113,8 +112,11 @@ function App() {
           points={points}
           setPoints={setPoints}
         />
+        <div id='center-display'>
         <Points points={points} />
+        <PassivePoints passiveArray={passiveArray} />
         {text ? <MainText setPoints={setPoints}/> : null}
+        </div>
       </UserContext.Provider>
     </>
   );

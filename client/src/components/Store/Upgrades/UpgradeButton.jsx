@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { UserContext } from "App";
-
 export default function UpgradeButton({
   index,
   name,
@@ -34,23 +31,25 @@ export default function UpgradeButton({
 
   return (
     <li className="purchase-btn-li">
-      {quant >= needed ? (
-        <button onClick={purchaseUpgrade} className="purchase-btn">
-          {" "}
-          <span>Upgrades: {boosts}</span>
-          <div>{name} Upgrade</div> <div>50% boost</div>{" "}
-          <div>{Math.floor(boostPrice / 10)} pts.</div>
-        </button>
-      ) : (
-        <div>
-          LOCKED
-          <div>
+      <div className="purchase-btn">
+        {quant >= needed ? (
+          <button onClick={purchaseUpgrade} className="purchase-btn">
             {" "}
-            {quant} / {needed}
-            <br /> {name}{" "}
+            <span>Upgrades: {boosts}</span>
+            <div>{name} Upgrade</div> <div>50% boost</div>{" "}
+            <div>{Math.floor(boostPrice / 10)} pts.</div>
+          </button>
+        ) : (
+          <div>
+            LOCKED
+            <div>
+              {" "}
+              {quant} / {needed}
+              <br /> {name}{" "}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </li>
   );
 }

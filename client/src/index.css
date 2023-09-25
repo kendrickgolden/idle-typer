@@ -1,4 +1,7 @@
-* {
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
     margin: 0;
     padding: 0;
 }
@@ -6,15 +9,24 @@
 body {
     font-family: "Jost", sans-serif;
     font-weight: 800;
-    background-color: hsl(54, 50%, 90%);
-    color: hsl(23, 15%, 34%);
+    background-color: #F2F0D9;
 }
+
 button {
     all: unset
 }
 
 #root {
+    box-sizing: border-box;
     height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+#center-display {
+    order: 2;
+    flex: 1 0 0%;
+    height: 100%;
 }
 
 #point-display {
@@ -59,8 +71,8 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     border-style: solid;
-    width: 50%;
-    height: 30%;
+    width: 60%;
+    height: 40%;
     margin: 0;
     font-size: 32px;
     overflow: hidden;
@@ -72,7 +84,7 @@ button {
     position: absolute;
     width: 100%;
     height: 100%;
-    font-family:"Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
 }
 
@@ -100,54 +112,51 @@ button {
     color: red;
 }
 
-.container {
+#passive-store {
+    order: 1;
+    margin-left: 50px;
+}
 
-    background-color: gray;
+#upgrade-store {
+    order: 3;
+    margin-right: 50px;
+}
+
+.store {
+    background-color: #706c40;
     text-align: center;
     padding: 10px;
+    width: 15%;
+    height: 75%;
+    min-width: 200px;
+    border-radius: 20px;
+    
 }
 
-#passive-container {
-    position: absolute;
-    left: 2.5%;
-    top: 5%;
-    width: 15%;
-    height: 85%;
-}
-
-#upgrade-container {
-    position: absolute;
-    right: 2.5%;
-    top: 5%;
-    width: 15%;
-    height: 85%;
-}
 
 
 .menu-scene {
-    position: absolute;
-    border: 2px solid black;
-    width: 90%;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
     list-style-type: none;
     gap: 10px;
-    height: 90%;
 }
 
 .purchase-btn-li {
     position: relative;
-    width: 90%;
-    background-color: white;
-    flex-basis: 20%;
+    width: 100%;
+    background-color: rgb(205, 177, 86);
+    flex: 1 1 0%;
     color: black;
+    border-radius: 10px;
+    box-shadow: -3px 3px;
 }
 
 .purchase-btn {
-    height: 100%;
+    height: 100px;
     width: 100%;
 }
 
