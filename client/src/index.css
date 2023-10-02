@@ -17,10 +17,25 @@ button {
 }
 
 #root {
-    box-sizing: border-box;
     height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    height: 50px;
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 48px;
+}
+#body {
+    height: 100%;   
+    display: flex;
+    align-items: center;
+    padding-top: 50px;
 }
 
 #center-display {
@@ -34,12 +49,12 @@ button {
     top: 15%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 32px;
+    font-size: 48px;
 }
 
 #passive-points-display {
     position: absolute;
-    top: 20%;
+    top: 22%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 20px;
@@ -50,17 +65,27 @@ button {
 #countdown {
     position: relative;
     width: 50%;
-    height: 20px;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
 }
 
+
+#countdown-bar-container {
+    position: relative;
+    border-style: solid;
+    height: 25px;
+    width: 100%;
+}
 #countdown-bar {
     position: relative;
     background-color: red;
     height: 100%;
+  
 }
 
 /*TEXT INPUT*/
@@ -123,13 +148,17 @@ button {
 }
 
 .store {
+    position: relative;
     background-color: #706c40;
     text-align: center;
     padding: 10px;
     width: 15%;
-    height: 75%;
+    min-height: 75%;
+    max-height: 90%;
     min-width: 200px;
     border-radius: 20px;
+    align-self: start;    
+    overflow-y: auto;
     
 }
 

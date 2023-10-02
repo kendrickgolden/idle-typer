@@ -1,8 +1,8 @@
 import React from 'react'
 
-export default function PassivePoints({passiveArray}) {
+export default function PassivePoints({storeArray}) {
 
   return (
-    <div id="passive-points-display"> {"+ " + passiveArray.reduce((acc, cur) => acc + cur.quant * cur.pts * (1 + cur.boosts *.5) , 0) / 10 +"/s"}</div>
+    <div id="passive-points-display"> Passive Points: {"+ " + storeArray.reduce((acc, cur) => acc + cur.quant * cur.pts * (1 + cur.upgrades *.5) , 0) / 10 +"/s"}</div>
   )
 }

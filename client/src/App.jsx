@@ -1,14 +1,14 @@
 import Points from "./components/CenterDisplay/Points";
 import MainText from "./components/CenterDisplay/MainText";
 import { createContext, useEffect, useState } from "react";
-import PassiveContainer from "./components/Store/PassiveGenerators/PassiveStore";
-import Upgrades from "components/Store/Upgrades/UpgradeStore";
+import PassiveContainer from "./components/Store/PurchaseStore/PurchaseStore";
+import Upgrades from "components/Store/UpgradeStore/UpgradeStore";
 import PassivePoints from "./components/CenterDisplay/PassivePoints";
 export const UserContext = createContext();
 
 function App() {
   const [text, setText] = useState(null);
-  const [points, setPoints] = useState(99999999);
+  const [points, setPoints] = useState(99999990);
   const value = {
     text,
     setText,
@@ -41,83 +41,112 @@ function App() {
     setText(paragraphArray);
   }
 
-  const PassiveUpgrade1 = {
+  const typingUpgrade = {
+    name: "Typing Upgrade",
+    desc: "+.1 pts per word typed",
+    //keep pts=0 to avoid interfering with point per second calculation
+    pts: 0,
+    price: 1000,
+    quant: 0,
+    upgrades: 0,
+    upgradePrice: 10000,
+    needed: 10,
+  };
+
+  const speedUpgrade = {
+    name: "Speed Upgrade",
+    desc: "10% bonus to speed points",
+    pts: 0,
+    price: 1000,
+    quant: 0,
+    upgrades: 0,
+    upgradePrice: 10000,
+    needed: 10,
+  }
+
+  const passiveUpgrade1 = {
     name: "Passive Upgrade 1",
     pts: 1,
     price: 2500,
     quant: 0,
-    boosts: 0,
-    boostPrice: 25000,
+    upgrades: 0,
+    upgradePrice: 25000,
     needed: 10,
   };
-  const PassiveUpgrade2 = {
+  const passiveUpgrade2 = {
     name: "Passive Upgrade 2",
     pts: 5,
     price: 5000,
     quant: 0,
-    boosts: 0,
-    boostPrice: 50000,
+    upgrades: 0,
+    upgradePrice: 50000,
     needed: 10,
   };
-  const PassiveUpgrade3 = {
+  const passiveUpgrade3 = {
     name: "Passive Upgrade 3",
     pts: 10,
     price: 10000,
     quant: 0,
-    boosts: 0,
-    boostPrice: 100000,
+    upgrades: 0,
+    upgradePrice: 100000,
     needed: 10,
   };
-  const PassiveUpgrade4 = {
+  const passiveUpgrade4 = {
     name: "Passive Upgrade 4",
     pts: 20,
     price: 20000,
     quant: 0,
-    boosts: 0,
-    boostPrice: 200000,
+    upgrades: 0,
+    upgradePrice: 200000,
     needed: 10,
   };
 
-  const [passiveArray, setPassiveArray] = useState([
-    PassiveUpgrade1,
-    PassiveUpgrade2,
-    PassiveUpgrade3,
-    PassiveUpgrade4,
+  const [storeArray, setStoreArray] = useState([
+    typingUpgrade,
+    speedUpgrade,
+    passiveUpgrade1,
+    passiveUpgrade2,
+    passiveUpgrade3,
+    passiveUpgrade4,
   ]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPoints(
         (prev) =>
-          prev + passiveArray.reduce((acc, cur) => acc + cur.quant * cur.pts, 0)
+          prev + storeArray.reduce((acc, cur) => acc + cur.quant * cur.pts, 0)
       );
-      console.log(points);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [points, passiveArray]);
+  }, [points, storeArray]);
 
   return (
     <>
-      <UserContext.Provider value={value}>
-        <PassiveContainer
-          passiveArray={passiveArray}
-          setPassiveArray={setPassiveArray}
-          points={points}
-          setPoints={setPoints}
-        />
-        <Upgrades
-          passiveArray={passiveArray}
-          setPassiveArray={setPassiveArray}
-          points={points}
-          setPoints={setPoints}
-        />
-        <div id='center-display'>
-        <Points points={points} />
-        <PassivePoints passiveArray={passiveArray} />
-        {text ? <MainText setPoints={setPoints}/> : null}
-        </div>
-      </UserContext.Provider>
+      <div id="header"> IDLE TYPER </div>
+      <div id="body">
+        <UserContext.Provider value={value}>
+          <PassiveContainer
+            storeArray={storeArray}
+            setStoreArray={setStoreArray}
+            points={points}
+            setPoints={setPoints}
+          />
+          <Upgrades
+            storeArray={storeArray}
+            setStoreArray={setStoreArray}
+            points={points}
+            setPoints={setPoints}
+          />
+          <div id="center-display">
+            <Points points={points} />
+            <PassivePoints storeArray={storeArray} />
+            {text ? (
+              <MainText setPoints={setPoints} storeArray={storeArray} />
+            ) : null}
+          </div>
+        </UserContext.Provider>
+      </div>
     </>
   );
 }

@@ -1,33 +1,30 @@
-import { useContext } from "react";
-import { UserContext } from "../../../App";
-
-export default function UpgradeButton({
+export default function PurchaseButton({
   index,
   name,
+  desc,
   pts,
   price,
   quant,
   arr,
-  setPassives,
+  setPurchases,
   points,
   setPoints,
 }) {
-
   function purchaseUpgrade() {
     if (points >= price) {
       setPoints((prev) => prev - price);
-      const newPassives = arr.map((passive, arrIndex) => {
+      const newPurchases = arr.map((purchase, arrIndex) => {
         if (arrIndex === index) {
           return {
-            ...passive,
-            quant: passive.quant + 1,
-            price: passive.price * 1.1,
+            ...purchase,
+            quant: purchase.quant + 1,
+            price: purchase.price * 1.1,
           };
         } else {
-          return passive;
+          return purchase;
         }
       });
-      setPassives(newPassives);
+      setPurchases(newPurchases);
     }
   }
 
@@ -35,11 +32,13 @@ export default function UpgradeButton({
     <li className="purchase-btn-li">
       <button onClick={purchaseUpgrade} className="purchase-btn">
         <span>Owned: {quant}</span>
-        <div>{name}</div>{" "}
+        <div>{name}</div>
         <div>
-          {" "}
-          + {pts / 10} pt{pts !== 10 && "s"} per second{" "}
-        </div>{" "}
+           {/*Autofills passive descriptions */}
+          {desc
+            ? desc
+            : "+" + pts / 10 + " pt" + (pts !== 10 ? "." : "s.") + " per second"}
+        </div>
         <div>{Math.floor(price / 10)} pts.</div>
       </button>
     </li>

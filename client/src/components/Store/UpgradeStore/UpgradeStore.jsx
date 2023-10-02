@@ -1,8 +1,8 @@
 import UpgradeButton from "./UpgradeButton";
 
 export default function UpgradeStore({
-  passiveArray,
-  setPassiveArray,
+  storeArray,
+  setStoreArray,
   points,
   setPoints,
 }) {
@@ -10,17 +10,17 @@ export default function UpgradeStore({
     <div id="upgrade-store" className="store">
       UPGRADES
       <ul className="menu-scene">
-        {passiveArray.map((info, index, arr) => (
+        {storeArray.map((info, index, arr) => (
           <UpgradeButton
             key={index}
             index={index}
             name={info.name}
             quant={info.quant}
-            boosts={info.boosts}
-            boostPrice={info.boostPrice}
+            upgrades={info.upgrades}
+            upgradePrice={info.upgradePrice}
             needed={info.needed}
             arr={arr}
-            setPassiveArray={setPassiveArray}
+            setStoreArray={setStoreArray}
             points={points}
             setPoints={setPoints}
           />

@@ -2,30 +2,30 @@ export default function UpgradeButton({
   index,
   name,
   quant,
-  boosts,
-  boostPrice,
+  upgrades,
+  upgradePrice,
   needed,
   arr,
-  setPassiveArray,
+  setStoreArray,
   points,
   setPoints,
 }) {
   function purchaseUpgrade() {
-    if (points >= boostPrice) {
-      setPoints((prev) => prev - boostPrice);
+    if (points >= upgradePrice) {
+      setPoints((prev) => prev - upgradePrice);
       const newUpgrades = arr.map((upgrade, arrIndex) => {
         if (arrIndex === index) {
           return {
             ...upgrade,
-            boosts: upgrade.boosts + 1,
-            boostPrice: upgrade.boostPrice * 2,
+            upgrades: upgrade.upgrades + 1,
+            upgradePrice: upgrade.upgradePrice * 2,
             needed: upgrade.needed * 2,
           };
         } else {
           return upgrade;
         }
       });
-      setPassiveArray(newUpgrades);
+      setStoreArray(newUpgrades);
     }
   }
 
@@ -35,9 +35,9 @@ export default function UpgradeButton({
         {quant >= needed ? (
           <button onClick={purchaseUpgrade} className="purchase-btn">
             {" "}
-            <span>Upgrades: {boosts}</span>
-            <div>{name} Upgrade</div> <div>50% boost</div>{" "}
-            <div>{Math.floor(boostPrice / 10)} pts.</div>
+            <span>Upgrades: {upgrades}</span>
+            <div>{name} Boost</div> <div>50% boost</div>{" "}
+            <div>{Math.floor(upgradePrice / 10)} pts.</div>
           </button>
         ) : (
           <div>

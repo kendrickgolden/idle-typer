@@ -6,6 +6,7 @@ export default function TextInput({
   setParIndex,
   timeLeft,
   setPoints,
+  storeArray,
 }) {
   const inputRef = useRef();
 
@@ -36,7 +37,11 @@ export default function TextInput({
     } else if (lastCharInput === " ") {
       if (" " === curPar[charIndex]) {
         charIndex++;
-        setPoints((prev) => prev + 10);
+        const wordBonus =
+          storeArray[0].quant * (1 + storeArray[0].upgrades * 0.5);
+        //award points upon word completion
+        setPoints((prev) => prev + 10 + wordBonus);
+
         setCorrectParagraph(correctParagraph.concat(lastCharInput));
         setUntypedParagraph(curPar.substring(charIndex));
       } else {
@@ -49,8 +54,14 @@ export default function TextInput({
         charIndex = 0;
         const totalWordCount = curPar.length / 5;
         const totalTime = (curPar.length / 250) * 60;
+        const wordBonus =
+        storeArray[0].quant * (1 + storeArray[0].upgrades * 0.5);
         const speedBonus = totalWordCount * (timeLeft / totalTime);
-        setPoints((prev) => prev + 10 * (speedBonus + totalWordCount));
+        const finalBonus =
+          speedBonus *
+          (1 + (storeArray[1].quant / 10) * (1 + storeArray[1].upgrades * 0.5));
+        //award speed-based bonus points
+        setPoints((prev) => prev + 10 + wordBonus + finalBonus);
         setParIndex((parIndex) => parIndex + 1);
         setCorrectParagraph("");
         setIncorrectParagraph("");
@@ -66,14 +77,22 @@ export default function TextInput({
   return (
     <div id="text-input-container" onClick={focusInput}>
       {correctParagraph.split("").map((char, index) => {
-        return <span className="correct">{char}</span>;
+        return (
+          <span className="correct" key={index}>
+            {char}
+          </span>
+        );
       })}
       {incorrectParagraph.split("").map((char, index) => {
-        return <span className="incorrect">{char}</span>;
+        return (
+          <span className="incorrect" key={index}>
+            {char}
+          </span>
+        );
       })}
       <input id="main-input" type="text" ref={inputRef} onChange={verifyText} />
       {untypedParagraph.split("").map((char, index) => {
-        return <span>{char}</span>;
+        return <span key={index}>{char}</span>;
       })}
     </div>
   );

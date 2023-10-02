@@ -3,7 +3,7 @@ import { UserContext } from "../../App";
 import TextInput from "./TextInput";
 import CountdownTimer from "./CountdownTimer";
 
-export default function MainText({setPoints}) {
+export default function MainText({setPoints, storeArray}) {
   const UserContextValues = useContext(UserContext);
   const text = UserContextValues.text;
 
@@ -26,7 +26,7 @@ export default function MainText({setPoints}) {
       />
 
       <div id="main-text">
-        <TextInput curPar={curPar} setParIndex={setParIndex} timeLeft={timeLeft} setPoints={setPoints} />
+        <TextInput curPar={curPar} setParIndex={setParIndex} timeLeft={timeLeft} setPoints={setPoints} storeArray={storeArray}/>
       </div>
     </>
   );
