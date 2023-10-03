@@ -55,7 +55,7 @@ export default function TextInput({
         const totalWordCount = curPar.length / 5;
         const totalTime = (curPar.length / 250) * 60;
         const wordBonus =
-        storeArray[0].quant * (1 + storeArray[0].upgrades * 0.5);
+          storeArray[0].quant * (1 + storeArray[0].upgrades * 0.5);
         const speedBonus = totalWordCount * (timeLeft / totalTime);
         const finalBonus =
           speedBonus *
@@ -78,21 +78,27 @@ export default function TextInput({
     <div id="text-input-container" onClick={focusInput}>
       {correctParagraph.split("").map((char, index) => {
         return (
-          <span className="correct" key={index}>
+          <span className="correct char" key={index}>
             {char}
           </span>
         );
       })}
       {incorrectParagraph.split("").map((char, index) => {
         return (
-          <span className="incorrect" key={index}>
+          <span className="incorrect char" key={index}>
             {char}
           </span>
         );
       })}
       <input id="main-input" type="text" ref={inputRef} onChange={verifyText} />
-      {untypedParagraph.split("").map((char, index) => {
-        return <span key={index}>{char}</span>;
+      {untypedParagraph.split(" ").map((word, index) => {
+        return (
+          <span key={index} className="word">
+            {word.split("").map((char, index) => {
+              return <span key={index} className="char">{char}</span>;
+            })}{" "}
+          </span>
+        );
       })}
     </div>
   );

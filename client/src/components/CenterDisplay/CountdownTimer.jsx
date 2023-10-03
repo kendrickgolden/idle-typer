@@ -29,7 +29,7 @@ function CountdownTimer({ curPar, timeLeft, setTimeLeft }) {
 
   return (
     <div id="countdown">
-      Speed Bonus
+      SPEED BONUS
       <div id="countdown-bar-container">
         <div id="countdown-bar" ref={countdownRef}></div>
       </div>
