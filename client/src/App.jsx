@@ -39,6 +39,7 @@ function App() {
       paragraphArray[i] = tempPar;
     }
     setText(paragraphArray);
+   // setText(['test test test', 'hello hello', 'yes yes'])
   }
 
   const typingUpgrade = {
@@ -124,6 +125,7 @@ function App() {
   return (
     <>
       <div id="header"> IDLE TYPER </div>
+
       <div id="body">
         <UserContext.Provider value={value}>
           <PassiveContainer
