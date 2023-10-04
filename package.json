@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "cd server && nodemon server.js",
     "develop": "concurrently --kill-others-on-fail \"npm run dev-server\" \"npm run start --prefix client\"",
-    "heroku": "npm run dev-server && cd client npm run start"
+    "heroku": "npm run heroku-server && cd client npm run start",
+    "heroku-server": "cd server && node server.js"
   },
   "keywords": [],
   "author": "",
