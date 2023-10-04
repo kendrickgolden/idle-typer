@@ -8,7 +8,7 @@ export const UserContext = createContext();
 
 function App() {
   const [text, setText] = useState(null);
-  const [points, setPoints] = useState(99999990);
+  const [points, setPoints] = useState(0);
   const value = {
     text,
     setText,
@@ -18,7 +18,7 @@ function App() {
 
   //import paragraphs of text
   useEffect(() => {
-    fetch(`http://localhost:5000/api/text?title=${title}`)
+    fetch(`/api/text?title=${title}`)
       .then((res) => {
         return res.json();
       })
