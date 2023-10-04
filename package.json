@@ -8,7 +8,9 @@
     "dev-server": "cd server && nodemon server.js",
     "develop": "concurrently --kill-others-on-fail \"npm run dev-server\" \"npm run start --prefix client\"",
     "heroku": "npm run heroku-server && cd client npm run start",
-    "heroku-server": "cd server && node server.js"
+    "heroku-server": "cd server && node server.js",
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
