@@ -31,7 +31,7 @@ export default function UpgradeButton({
 
   return (
     <li className="purchase-btn-li">
-      <div className="purchase-btn">
+      <div className="purchase-btn-text">
         {quant >= needed ? (
           <button onClick={purchaseUpgrade} className="purchase-btn">
             {" "}

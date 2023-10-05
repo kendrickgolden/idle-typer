@@ -31,15 +31,21 @@ export default function PurchaseButton({
   return (
     <li className="purchase-btn-li">
       <button onClick={purchaseUpgrade} className="purchase-btn">
-        <span>Owned: {quant}</span>
-        <div>{name}</div>
-        <div>
-           {/*Autofills passive descriptions */}
-          {desc
-            ? desc
-            : "+" + pts / 10 + " pt" + (pts !== 10 ? "." : "s.") + " per second"}
+        <div className="purchase-btn-text">
+          <span>Owned: {quant}</span>
+          <div>{name}</div>
+          <div>
+            {/*Autofills passive descriptions */}
+            {desc
+              ? desc
+              : "+" +
+                pts / 10 +
+                " pt" +
+                (pts !== 10 ? "." : "s.") +
+                " per second"}
+          </div>
+          <div>{Math.floor(price / 10)} pts.</div>
         </div>
-        <div>{Math.floor(price / 10)} pts.</div>
       </button>
     </li>
   );

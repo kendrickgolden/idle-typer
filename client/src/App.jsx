@@ -8,7 +8,7 @@ export const UserContext = createContext();
 
 function App() {
   const [text, setText] = useState(null);
-  const [points, setPoints] = useState(0);
+  const [points, setPoints] = useState(999990);
   const value = {
     text,
     setText,

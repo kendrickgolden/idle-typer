@@ -9,7 +9,8 @@
 body {
     font-family: "Jost", sans-serif;
     font-weight: 300;
-    background-color: #F2F0D9;
+    /*background-color: #F2F0D9;*/
+    background-color: #f0ede8;
 }
 
 button {
@@ -19,8 +20,8 @@ button {
 #root {
     height: 100vh;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 80px 1fr;
 }
 
 #header {
@@ -34,7 +35,6 @@ button {
 }
 
 #body {
-    height: 100%;
     display: flex;
     align-items: center;
     padding-top: 50px;
@@ -52,7 +52,7 @@ button {
     left: 50%;
     transform: translateX(-50%);
     font-size: 48px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 #passive-points-display {
@@ -89,7 +89,7 @@ button {
 
 #countdown-bar {
     position: relative;
-    background-color: red;
+    background-color: rgb(0, 101, 0);
     border-radius: 20px;
     height: 100%;
 
@@ -102,7 +102,7 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: solid ;
+    border: solid;
     border-radius: 25px;
     width: 60%;
     height: 40%;
@@ -164,49 +164,62 @@ button {
 
 .store {
     position: relative;
-    background-color: #706c40;
     text-align: center;
     padding: 10px;
     width: 15%;
-    min-height: 75%;
-    max-height: 90%;
-    min-width: 200px;
-    border-radius: 20px;
+    min-width: 300px;
     align-self: start;
-    overflow-y: auto;
     font-size: 36px;
-
+    height: 90%;
+    display: grid;
+    grid-template-rows: 1fr 10fr;
 }
 
 
 
 .menu-scene {
     position: relative;
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
     list-style-type: none;
     gap: 10px;
+    border: solid 1px;
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
 }
 
 .purchase-btn-li {
-    position: relative;
+    flex: 1 1 100px;
+    border-bottom: solid 1px;
     width: 100%;
-    /*background-color: rgb(205, 177, 86);*/
-    background-color: white;
-    flex: 1 1 0%;
-    color: black;
-    border-radius: 10px;
-    box-shadow: -3px 3px;
-    font-size: 16px;
-    font-weight: 600;
 }
 
 .purchase-btn {
-    height: 100px;
+    position: relative;
     width: 100%;
 }
+
+.purchase-btn-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
 
 .locked {
     position: absolute;
