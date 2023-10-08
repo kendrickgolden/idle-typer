@@ -10,6 +10,8 @@ export default function UpgradeButton({
   points,
   setPoints,
 }) {
+  const priceColor = points >= upgradePrice ? "black" : "red";
+
   function purchaseUpgrade() {
     if (points >= upgradePrice) {
       setPoints((prev) => prev - upgradePrice);
@@ -31,25 +33,30 @@ export default function UpgradeButton({
 
   return (
     <li className="purchase-btn-li">
-      <div className="purchase-btn-text">
-        {quant >= needed ? (
-          <button onClick={purchaseUpgrade} className="purchase-btn">
-            {" "}
-            <span>Upgrades: {upgrades}</span>
-            <div>{name} Boost</div> <div>50% boost</div>{" "}
-            <div>{Math.floor(upgradePrice / 10)} pts.</div>
-          </button>
-        ) : (
-          <div>
-            LOCKED
-            <div>
-              {" "}
-              {quant} / {needed}
-              <br /> {name}{" "}
-            </div>
+      {quant >= needed ? (
+        <button
+          onClick={purchaseUpgrade}
+          className="purchase-btn"
+          type="button"
+        >
+          <div className="purchase-btn-text">
+            <div className="btn-name">{name.replace("Upgrade", "")} Boost</div>{" "}
+            <div className="btn-desc">50% boost</div>
+            <span className="btn-price" style={{ color: priceColor }}>
+              {Math.floor(upgradePrice / 10)} pts.
+            </span>
+            <span className="btn-owned">Owned: {upgrades}</span>
           </div>
-        )}
-      </div>
+        </button>
+      ) : (
+        <div className="purchase-btn-text">
+          <div className="btn-name"> {name.replace("Upgrade", "")} Boost</div>
+          <span className="btn-locked">LOCKED</span>
+          <span className="btn-needed">
+            {quant} / {needed}
+          </span>
+        </div>
+      )}
     </li>
   );
 }

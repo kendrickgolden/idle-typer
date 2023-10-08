@@ -10,6 +10,8 @@ export default function PurchaseButton({
   points,
   setPoints,
 }) {
+  const priceColor = points >= price ? "black" : "red";
+
   function purchaseUpgrade() {
     if (points >= price) {
       setPoints((prev) => prev - price);
@@ -30,11 +32,10 @@ export default function PurchaseButton({
 
   return (
     <li className="purchase-btn-li">
-      <button onClick={purchaseUpgrade} className="purchase-btn">
+      <button onClick={purchaseUpgrade} className="purchase-btn" type="button">
         <div className="purchase-btn-text">
-          <span>Owned: {quant}</span>
-          <div>{name}</div>
-          <div>
+          <div className="btn-name">{name}</div>
+          <div className="btn-desc">
             {/*Autofills passive descriptions */}
             {desc
               ? desc
@@ -44,7 +45,10 @@ export default function PurchaseButton({
                 (pts !== 10 ? "." : "s.") +
                 " per second"}
           </div>
-          <div>{Math.floor(price / 10)} pts.</div>
+          <span className="btn-price" style={{ color: priceColor }}>
+            {Math.floor(price / 10)} pts.
+          </span>
+          <span className="btn-owned">Owned: {quant}</span>
         </div>
       </button>
     </li>
